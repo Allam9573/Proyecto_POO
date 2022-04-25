@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
 import model.Cliente;
 import utils.HibernateUtil;
+import org.hibernate.query.Query;
 
 public class ClienteDAO {
 
@@ -44,12 +44,13 @@ public class ClienteDAO {
 
 		try {
 			tr = session.beginTransaction();
-			clientes = (ArrayList<Cliente>) session.createQuery(
-					"SELECT c FROM Cliente WHERE c.usuario=" + usuario + "AND c.contrasenia=" + contrasenia,
-					Cliente.class).getResultList();
+			Query<Cliente> user= (Query<Cliente>) session.createQuery(
+					"SELECT c FROM Cliente c WHERE c.usuario=" + usuario + "AND c.contrasenia=" + contrasenia,
+					Cliente.class);
+			ArrayList<Cliente> logUser = (ArrayList<Cliente>)user.list();
 
 			if (clientes.size() > 0) {
-				cliente = clientes.get(0);
+				cliente = logUser.get(0);
 				return cliente;
 			} else {
 				return null;

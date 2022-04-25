@@ -40,7 +40,10 @@ public class ClienteController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String action = request.getParameter("action");
+		if(action.equals("login")) {
+			login(request, response);
+		}
 	}
 	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String usuario = request.getParameter("usuario");

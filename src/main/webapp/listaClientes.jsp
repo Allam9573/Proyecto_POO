@@ -31,6 +31,7 @@ ArrayList<Cliente> clientes = cDAO.listarClientes();
 					<th scope="col">Apellido</th>
 					<th scope="col">Usuario</th>
 					<th scope="col">Correo</th>
+					<th scope="col">Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -38,7 +39,7 @@ ArrayList<Cliente> clientes = cDAO.listarClientes();
 				for (Cliente cliente : clientes) {
 					out.print("<tr>" + "<td>" + cliente.getClienteId() + "</td>" + "<td>" + cliente.getNombre() + "</td>" + "<td>"
 					+ cliente.getApellido() + "</td>" + "<td>" + cliente.getUsuario() + "</td>" + "<td>" + cliente.getCorreo()
-					+ "</td>" + "</tr>");
+					+ "</td>" + "<td><button class='btn btn-danger'>Editar</button><button class='btn btn-danger ml-4'>Eliminar</button></td>"+"</tr>");
 				}
 				%>
 
