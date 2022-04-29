@@ -31,9 +31,7 @@
 	}else{
 		productos = pDAO.listarProductos();
 	}
-	
-	ClienteDAO cDAO = new ClienteDAO();
-	ArrayList<Cliente> clientes = cDAO.listarClientes();
+
 	%>
 	<main>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
