@@ -46,12 +46,13 @@ public class ClienteDAO {
 
 		try {
 			tr = session.beginTransaction();
-			clientes = (ArrayList<Cliente>) session.createQuery(
-					"SELECT c FROM Cliente c WHERE c.usuario=" + usuario + "AND c.contrasenia=" + contrasenia,
-					Cliente.class).getResultList();
+			Query<Cliente> user = (Query<Cliente>) session.createQuery(
+					"SELECT c FROM Cliente c WHERE c.usuario=" + usuario + " AND c.contrasenia=" + contrasenia,
+					Cliente.class);
+			List<Cliente> logUser = user.list();
 
-			if (clientes.size() > 0) {
-				cliente = clientes.get(0);
+			if (logUser.size() > 0) {
+				cliente = logUser.get(0);
 				return cliente;
 			} else {
 				return null;
@@ -69,6 +70,7 @@ public class ClienteDAO {
 		}
 
 	}
+
 	public boolean eliminarCliente(int idCliente) {
 		SessionFactory sessionF = new HibernateUtil().getSessionFactory();
 		Session session = sessionF.getCurrentSession();
@@ -92,6 +94,7 @@ public class ClienteDAO {
 			sessionF.close();
 		}
 	}
+
 	public ArrayList<Cliente> buscarCliente(String filtro) {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		SessionFactory sessionF = new HibernateUtil().getSessionFactory();
@@ -100,10 +103,10 @@ public class ClienteDAO {
 		Transaction tr = null;
 		try {
 			tr = session.beginTransaction();
-			String sql = "Select c from cliente c ";
+			String sql = "Select c from Cliente c ";
 
 			if (filtro != null) {
-				sql += "where c.cliente like '%" + filtro + "%'";
+				sql += "where c.usuario like '%" + filtro + "%'";
 				clientes = (ArrayList<Cliente>) session.createQuery(sql, Cliente.class).getResultList();
 			}
 		} catch (Exception ex) {
@@ -115,6 +118,7 @@ public class ClienteDAO {
 		}
 		return clientes;
 	}
+
 	public boolean actualizarCliente(String nombre) {
 
 		SessionFactory sessionF = new HibernateUtil().getSessionFactory();

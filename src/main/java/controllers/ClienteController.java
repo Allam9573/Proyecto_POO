@@ -72,7 +72,6 @@ public class ClienteController extends HttpServlet {
 
 		Cliente logueado = cDAO.loginCliente(usuario, password);
 		ArrayList<Cliente> clientes = cDAO.listarClientes();
-
 		HttpSession session = request.getSession();
 
 		if (logueado != null) {

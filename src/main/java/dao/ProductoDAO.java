@@ -85,7 +85,7 @@ public class ProductoDAO {
 			String sql = "Select p from Producto p ";
 
 			if (filtro != null) {
-				sql += "where p.producto like '%" + filtro + "%'";
+				sql += "where p.nombre like '%" + filtro + "%'";
 				productos = (ArrayList<Producto>) session.createQuery(sql, Producto.class).getResultList();
 			}
 		} catch (Exception ex) {

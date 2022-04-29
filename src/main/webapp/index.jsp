@@ -24,7 +24,14 @@
 
 	<%
 	ProductoDAO pDAO = new ProductoDAO();
-	ArrayList<Producto> productos = pDAO.listarProductos();
+	ArrayList<Producto> productos;
+	
+	if(request.getAttribute("resultado")!=null){
+		productos = (ArrayList<Producto>)request.getAttribute("resultado");
+	}else{
+		productos = pDAO.listarProductos();
+	}
+	
 	ClienteDAO cDAO = new ClienteDAO();
 	ArrayList<Cliente> clientes = cDAO.listarClientes();
 	%>
@@ -78,6 +85,14 @@
 
 				</tbody>
 			</table>
+			
+			<h2>
+			<%
+				if(request.getAttribute("message")!= null){
+					out.print(request.getAttribute("message"));
+				}
+			%>
+			</h2>
 
 		</div>
 	<%-- 	<form action="ProductoController">
