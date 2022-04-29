@@ -10,8 +10,18 @@
   	<description></description>
   	<servlet-class>controllers.ClienteController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ProductoController</servlet-name>
+  	<display-name>ProductoController</display-name>
+  	<description></description>
+  	<servlet-class>controllers.ProductoController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ClienteController</servlet-name>
   	<url-pattern>/ClienteController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ProductoController</servlet-name>
+  	<url-pattern>/ProductoController</url-pattern>
   </servlet-mapping>
 </web-app>

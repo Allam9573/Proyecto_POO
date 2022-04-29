@@ -20,7 +20,23 @@
 ClienteDAO cDAO = new ClienteDAO();
 ArrayList<Cliente> clientes = cDAO.listarClientes();
 %>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="index.jsp">Tienda</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item"><a class="nav-link" href="listarClientes.jsp">Clientes</a></li>
+						
+					</ul>
+				</div>
+			</div>
+		</nav>
 	<div class="container text-center mt-5	">
 		<h2>Listado de Clientes:</h2>
 		<table class="table">
@@ -39,7 +55,7 @@ ArrayList<Cliente> clientes = cDAO.listarClientes();
 				for (Cliente cliente : clientes) {
 					out.print("<tr>" + "<td>" + cliente.getClienteId() + "</td>" + "<td>" + cliente.getNombre() + "</td>" + "<td>"
 					+ cliente.getApellido() + "</td>" + "<td>" + cliente.getUsuario() + "</td>" + "<td>" + cliente.getCorreo()
-					+ "</td>" + "<td><button class='btn btn-danger'>Editar</button><button class='btn btn-danger ml-4'>Eliminar</button></td>"+"</tr>");
+					+ "</td>" + "<td><button class='btn btn-danger'>Editar</button><a class='btn btn-danger ml-4' href='ClienteController?action=eliminar&clienteId="+cliente.getClienteId()+"'>Eliminar</a></td>"+"</tr>");
 				}
 				%>
 

@@ -9,6 +9,8 @@ import model.Cliente;
 import utils.HibernateUtil;
 import org.hibernate.query.Query;
 
+import java.util.List;
+
 public class ClienteDAO {
 
 	public ArrayList<Cliente> listarClientes() {
@@ -44,13 +46,12 @@ public class ClienteDAO {
 
 		try {
 			tr = session.beginTransaction();
-			Query<Cliente> user= (Query<Cliente>) session.createQuery(
+			clientes = (ArrayList<Cliente>) session.createQuery(
 					"SELECT c FROM Cliente c WHERE c.usuario=" + usuario + "AND c.contrasenia=" + contrasenia,
-					Cliente.class);
-			ArrayList<Cliente> logUser = (ArrayList<Cliente>)user.list();
+					Cliente.class).getResultList();
 
 			if (clientes.size() > 0) {
-				cliente = logUser.get(0);
+				cliente = clientes.get(0);
 				return cliente;
 			} else {
 				return null;
@@ -66,5 +67,88 @@ public class ClienteDAO {
 			session.close();
 			sessionF.close();
 		}
+
+	}
+	public boolean eliminarCliente(int idCliente) {
+		SessionFactory sessionF = new HibernateUtil().getSessionFactory();
+		Session session = sessionF.getCurrentSession();
+
+		Transaction tr = null;
+		try {
+			tr = session.beginTransaction();
+			Cliente cliente = session.get(Cliente.class, idCliente);
+			session.delete(cliente);
+			tr.commit();
+			return true;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			if (tr != null) {
+				tr.rollback();
+			}
+			return false;
+		} finally {
+			session.close();
+			sessionF.close();
+		}
+	}
+	public ArrayList<Cliente> buscarCliente(String filtro) {
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		SessionFactory sessionF = new HibernateUtil().getSessionFactory();
+		Session session = sessionF.getCurrentSession();
+
+		Transaction tr = null;
+		try {
+			tr = session.beginTransaction();
+			String sql = "Select c from cliente c ";
+
+			if (filtro != null) {
+				sql += "where c.cliente like '%" + filtro + "%'";
+				clientes = (ArrayList<Cliente>) session.createQuery(sql, Cliente.class).getResultList();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			if (tr != null) {
+				tr.rollback();
+			}
+			clientes = null;
+		}
+		return clientes;
+	}
+	public boolean actualizarCliente(String nombre) {
+
+		SessionFactory sessionF = new HibernateUtil().getSessionFactory();
+		Session session = sessionF.getCurrentSession();
+
+		Transaction tr = null;
+		try {
+
+			tr = session.beginTransaction();
+
+			Cliente cliente = session.get(Cliente.class, nombre);
+			cliente.setNombre(nombre);
+
+			session.update(cliente);
+
+			tr.commit();
+
+			return true;
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+
+			if (tr != null) {
+				tr.rollback();
+			}
+
+			return false;
+		}
+
+		finally {
+			session.close();
+			sessionF.close();
+		}
+
 	}
 }

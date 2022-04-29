@@ -18,7 +18,7 @@ public class PedidoDAO {
 		Transaction tr = null;
 		try {
 			tr = session.beginTransaction();
-			pedidos = (ArrayList<Pedido>) session.createQuery("SELECT c FROM Cliente c", Pedido.class)
+			pedidos = (ArrayList<Pedido>) session.createQuery("SELECT p FROM pedido p", Pedido.class)
 					.getResultList();
 
 		} catch (Exception ex) {
