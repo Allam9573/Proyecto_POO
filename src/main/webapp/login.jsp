@@ -37,6 +37,7 @@
 			</div>
 		</div>
 	</nav>
+	<% %>
 	<div class="container text-center">
 		<div class="card" style="width: 18rem;">
 			<div class="card-header">
